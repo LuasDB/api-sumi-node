@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recepción de equipo</title>
+  <style type="text/css">
+    /* Estilos generales y responsivos */
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      background-color: #f4f7f6; /* Un gris muy claro para el fondo exterior */
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333333;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 0;
+      Margin: 0; /* Para Outlook */
+    }
+
+    img {
+      border: 0;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+      -ms-interpolation-mode: bicubic; /* Para IE */
+    }
+
+    .wrapper {
+      width: 100%;
+      table-layout: fixed;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff; /* Fondo blanco para el contenido del correo */
+      border-radius: 8px; /* Bordes redondeados para un look moderno */
+      overflow: hidden; /* Para que el border-radius afecte a los hijos */
+      border: 1px solid #e0e0e0; /* Un borde sutil */
+    }
+
+    .content-padding {
+      padding: 25px 30px; /* Padding general para el contenido */
+    }
+
+    .header-padding {
+      padding: 30px 30px 20px 30px;
+    }
+
+    .footer-padding {
+      padding: 20px 30px;
+    }
+
+    .button-link {
+      background-color: #006837; /* Verde oscuro de tu botón original */
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      display: inline-block;
+      border: 1px solid #00572d; /* Borde ligeramente más oscuro para profundidad */
+      transition: background-color 0.2s ease-in-out;
+    }
+    .button-link:hover { /* Efecto hover sutil (no todos los clientes lo soportan) */
+        background-color: #00572d !important;
+    }
+
+    .footer-text {
+        font-size: 12px;
+        color: #777777;
+        line-height: 1.5;
+    }
+    .footer-link {
+        color: #006837; /* Color del botón para enlaces del footer */
+        text-decoration: underline;
+    }
+    .footer-section-title {
+        font-size: 14px;
+        color: #333333;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .footer-column-separator {
+        border-left: 1px solid #dddddd;
+    }
+
+
+    /* Estilos para dispositivos móviles */
+    @media screen and (max-width: 600px) {
+      .email-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+      }
+      .content-padding, .header-padding, .footer-padding {
+        padding: 20px 15px !important;
+      }
+      .logo {
+        max-width: 130px !important; /* Ajustar tamaño del logo en móviles */
+      }
+      .title-text { /* Si tuvieras un título principal, aquí irían sus estilos */
+        font-size: 22px !important;
+        line-height: 30px !important;
+      }
+      .content-text {
+        font-size: 15px !important;
+        line-height: 1.7 !important;
+      }
+      .button-link {
+        padding: 12px 25px !important;
+        font-size: 15px !important;
+      }
+      .footer-column {
+        display: block !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+        text-align: center !important;
+      }
+      .footer-column-separator {
+        border-left: none !important;
+      }
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#f4f7f6; font-family:Arial, Helvetica, sans-serif; color:#333333;">
+  <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+      body {background-color: #f4f7f6!important;}
+      body, table, td, p, a {font-family: Arial, sans-serif!important;}
+      .email-container {border: 1px solid #e0e0e0!important;} /* Outlook no siempre respeta box-shadow */
+    </style>
+  <![endif]-->
+  <table class="wrapper" align="center" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f7f6; padding: 20px 0;">
+    <tr>
+      <td align="center">
+        <table class="email-container" width="600" cellpadding="0" cellspacing="0">
+          <!-- Header con logo -->
+          <tr>
+            <td align="center" class="header-padding" style="background-color: #ffffff; border-bottom: 1px solid #eeeeee;">
+              <!-- El width aquí debe ser el tamaño deseado del logo, no 600. style="max-width:100%" lo hará responsivo si el contenedor es más pequeño. -->
+              <img src="cid:logo_empresa" alt="Logo de la empresa" width="600" style="height:auto; display:block;" class="logo">
+            </td>
+          </tr>
+
+          <!-- Contenido principal -->
+          <tr>
+            <td class="content-padding" style="background-color: #ffffff;">
+              <p class="content-text" style="font-size:16px; line-height:1.6; margin: 0 0 15px 0;">Estimado(a) <strong>{{name}}</strong>,</p>
+              <p class="content-text" style="font-size:16px; line-height:1.6; margin: 0 0 20px 0;">Le informamos que hemos recibido su solicitud de cotización para la calibración de su equipo .</p>
+              <p class="content-text" style="font-size:16px; line-height:1.6; margin: 0 0 25px 0;">En breve uno de nuestros agentes le atendera. Su solicitud es muy importante para nosotros y en estos momentos estamos revisando su solicitud. </p>
+            </td>
+          </tr>
+
+
+
+          <!-- Más contenido -->
+          <tr>
+            <td class="content-padding" style="padding-top:0; background-color: #ffffff;">
+              <p class="content-text" style="font-size:16px; line-height:1.6; margin: 0 0 15px 0;">Agradecemos su confianza</p>
+
+            </td>
+
+          </tr>
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color: #f8f8f8; ">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td class="footer-padding">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                      <tr>
+                        <!-- Columna 1 -->
+                        <td class="footer-column" width="33.33%" valign="top" style="padding-right: 10px; text-align:left;">
+                          <a href="#" style="cursor: pointer;text-decoration: none;" _blank>
+                            <p class="footer-section-title" style="margin-top:0;">Laboratorio de Calibración</p>
+                            <p class="footer-text" style="margin:0;">Acreditado por ema a.c.<br></p>
+                          </a>
+
+                        </td>
+                        <!-- Columna 2 -->
+                        <td class="footer-column footer-column-separator" width="33.33%" valign="top" style="padding-left: 10px; padding-right: 10px; text-align:left;">
+
+                            <a href="https://tusitio.com/politicas" target="_blank" class="footer-link" style="color: #006837; text-decoration: none;">
+                              <p class="footer-section-title" style="margin-top:0;">Políticas</p>
+                              <p class="footer-text" style="margin:0;">
+                              Anticorrupción y Privacidad
+                            </a>
+                          </p>
+                        </td>
+                        <!-- Columna 3 -->
+                        <td class="footer-column footer-column-separator" width="33.33%" valign="top" style="padding-left: 10px; text-align:left;">
+                          <p class="footer-section-title" style="margin-top:0;">Contacto</p>
+                          <p class="footer-text" style="margin:0;">
+                            <a  class="footer-link" style="color: #006837; text-decoration: none;">55 5635 0101</a><br>
+                            <a href="mailto:soporte@empresa.com" class="footer-link" style="color: #006837; text-decoration: none;">laboratorio@sumi.com.mx</a>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding: 15px 30px 20px 30px;">
+                    <p class="footer-text" style="margin:0;">
+                      © 2025 Suministros de Importación, S.A. de C.V. Todos los derechos reservados.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
