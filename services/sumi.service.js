@@ -30,8 +30,8 @@ class Sumi{
         from:config.emailSupport,
         to:'saul.delafuente@samar-technologies.com',
         subject:'Cotización de calibración SUMI',
-        data:{name:data.name, email:data.email, phone:data.phone, company:data.company},
-        templateEmail:'notifyClient',
+        data:{name:data.name, email:data.email, phone:data.phone, company:data.company,message:data.details},
+        templateEmail:'notifyLab',
         attachments:[{
           filename:'logo',
           path:path.join(`emails/logo.png`),
