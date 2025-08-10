@@ -2,6 +2,7 @@ import Boom from "@hapi/boom"
 import path from "path"
 import { sendMail } from "../utils/sendMail.js"
 import { db } from "../db/mongoClient.js"
+import config from "../config.js"
 
 
 class Sumi{
@@ -13,14 +14,28 @@ class Sumi{
     console.log(data)
     try {
       await sendMail({
+        from:config.emailSupport,
         to:data.email,
         subject:'Cotización de calibración SUMI',
         data:{name:data.name},
         templateEmail:'notifyClient',
         attachments:[{
-          filename:'logo_empresa',
-          path:path.join(`emails/logo_empresa.png`),
-          cid:'logo_empresa'
+          filename:'logo',
+          path:path.join(`emails/logo.png`),
+          cid:'logo'
+        }]
+      })
+
+       await sendMail({
+        from:config.emailSupport,
+        to:'saul.delafuente@samar-technologies.com',
+        subject:'Cotización de calibración SUMI',
+        data:{name:data.name, email:data.email, phone:data.phone, company:data.company},
+        templateEmail:'notifyClient',
+        attachments:[{
+          filename:'logo',
+          path:path.join(`emails/logo.png`),
+          cid:'logo'
         }]
       })
 
