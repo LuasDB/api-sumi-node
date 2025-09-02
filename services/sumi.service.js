@@ -3,6 +3,8 @@ import path from "path"
 import { sendMail } from "../utils/sendMail.js"
 import { db } from "../db/mongoClient.js"
 import config from "../config.js"
+import { ObjectId } from "mongodb"
+import fs from 'fs'
 
 
 class Sumi{
@@ -91,6 +93,94 @@ class Sumi{
       throw Boom.badImplementation('Error al crear acreditación', error)
     }
   }
+
+  async updateAccreditation(id, data, files) {
+  try {
+    if (!id) {
+      throw Boom.badRequest("ID es requerido para actualizar");
+    }
+
+    const updateDoc = {
+      ...data,
+      updatedAt: new Date(),
+    };
+
+
+    if (files?.acreditacion) {
+      updateDoc.fileAcreditation = files["acreditacion"][0].path;
+    }
+    if (files?.cmc) {
+      updateDoc.fileCmc = files["cmc"][0].path;
+    }
+
+    const result = await db
+      .collection("accreditations")
+      .updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateDoc }
+      );
+
+    if (result.matchedCount === 0) {
+      throw Boom.notFound("Acreditación no encontrada");
+    }
+
+    return { status: "updated", id, updateDoc, result };
+  } catch (error) {
+    if (Boom.isBoom(error)) {
+      throw error;
+    }
+    throw Boom.badImplementation("Error al actualizar acreditación", error);
+  }
+  }
+
+
+
+async deleteAccreditation(id) {
+  try {
+    if (!id) {
+      throw Boom.badRequest("ID es requerido para eliminar");
+    }
+
+    const accreditation = await db
+      .collection("accreditations")
+      .findOne({ _id: new ObjectId(id) });
+
+    if (!accreditation) {
+      throw Boom.notFound("Acreditación no encontrada");
+    }
+
+    const result = await db
+      .collection("accreditations")
+      .deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount !== 0) {
+      const filesToDelete = [
+        accreditation.fileAcreditation,
+        accreditation.fileCmc,
+      ].filter(Boolean);
+
+      for (const filePath of filesToDelete) {
+        const absolutePath = path.resolve(filePath);
+        fs.unlink(absolutePath, (err) => {
+          if (err) {
+            console.error(`❌ Error eliminando archivo: ${absolutePath}`, err);
+          } else {
+            console.log(`🗑️ Archivo eliminado: ${absolutePath}`);
+          }
+        });
+      }
+    }
+
+    return { status: "deleted", id, result };
+  } catch (error) {
+    if (Boom.isBoom(error)) {
+      throw error;
+    }
+    throw Boom.badImplementation("Error al eliminar acreditación", error);
+  }
+}
+
+
 
 
 

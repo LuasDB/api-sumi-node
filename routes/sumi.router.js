@@ -58,6 +58,47 @@ const sumiRouter = (io)=>{
     }
   })
 
+  router.patch('/:id',upload("accreditations").fields([
+    { name: "acreditacion", maxCount: 1 },
+    { name: "cmc", maxCount: 1 },
+  ]),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+
+      const updatedAccreditation = await sumi.updateAccreditation(
+        id,
+        req.body,
+        req.files
+      );
+
+      res.status(200).json({
+        success: true,
+        message: "Registro actualizado con éxito",
+        data: updatedAccreditation,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  );
+
+  router.delete('/:id',async (req, res, next) => {
+    try {
+
+      const deleteAccreditation = await sumi.deleteAccreditation(req.params.id);
+
+      res.status(200).json({
+        success: true,
+        message: "Registro eliminado con éxito",
+        data: deleteAccreditation,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  );
+
   return router
 }
 
